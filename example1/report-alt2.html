@@ -1,0 +1,58 @@
+<html>
+<head>
+<style>
+table, th, td {
+   border: 1px solid black;
+   border-collapse: collapse;
+}
+</style>
+</head>
+<body>
+	<table>
+		<tr>
+			<th colspan="3">Issue</th>
+			<th colspan="3">Revision</th>
+		</tr>
+		<tr>
+			<th>Id</th>
+			<th>Type</th>
+			<th>Description</th>
+			<th># / Branch / Headline</th>
+		</tr>
+		<tr>
+			<td><a href="http://sample.jira.net/browse/ID-1">ID-1</td>
+			<td>Capability</td>
+			<td>cap 1</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>ID-2</td>
+			<td>Feature</td>
+			<td><span style="padding-left:2em">feat 2</span></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td rowspan="2">ID-3</td>
+			<td rowspan="2">Story</td>
+			<td rowspan="2"><span style="padding-left:4em">story 3</span></td>
+			<td>3 / trunk / ID-9 some comment
+				<br>5 / trunk / ID-9 fix
+			</td>
+		</tr>
+	</table>
+	
+	<h1>Unmapped revisions</h1>
+	<table>
+		<tr>
+			<th>#</th>
+			<th>Branch</th>
+			<th>Headline</th>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>trunk</td>
+			<td>ID-12 some comment</td>
+		</tr>
+	</table>
+</body>
+<html>

@@ -1,0 +1,35 @@
+{
+	"featureSet" : [
+	
+	{
+		"id" : "ID-1", 
+		"type":"Capability", 
+		"description" : "cap 1",
+		"children" : [
+			
+		{
+			"id" : "ID-2", 
+			"type":"Feature", 
+			"description" : "feat 2",
+			"children" : [
+			{
+				"id" : "ID-3", 
+				"type":"Story", 
+				"description" : "story  3",
+				"children" : [
+				{
+					"id" : "ID-9", 
+					"type":"Subtask", 
+					"description" : "story 3 - impl task",
+				}
+				]
+			}
+
+			]
+		}
+		]
+	
+	}
+	]
+
+}
