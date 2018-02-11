@@ -25,15 +25,19 @@
     <table class="table table-hover">
 		<thead>
 			<tr>
-				<th class="col-md-4">Key</th>
-				<th class="col-md-8">Description</th>
+				<th class="col-md-2">Issue</th>
+				<th class="col-md-2">Source Code</th>
 			</tr>
 		</thead>
 		<tbody>
 			{{#.}}
 			<tr>
-				<td style="padding-left:{{padding}}px">{{issue.key}}</td>
-				<td>{{issue.summary}}</td>
+				<td style="padding-left:{{level}}em">{{issue.key}} ({{issue.type}}) {{issue.summary}}</td>
+				<td>
+					{{#code}}
+						{{.}}
+					{{/code}}
+				</td>
 			</tr>
 			{{/.}}
 		</tbody>
