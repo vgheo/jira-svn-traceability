@@ -106,8 +106,8 @@ USAGE
         generator=IssuesToCodeRTMGenerator(structure, issues, svnlog)
         report = generator.generate("Story")
         
+        sys.stdout.write("var data = ")
         json.dump(report, sys.stdout, indent=2)
-        
 
         return 0
     except KeyboardInterrupt:
