@@ -57,11 +57,11 @@ class IssuesToCodeRTMGenerator:
         self._changeList=changeList
         # issue to change map
         self._issueToChangeMap = {}
-        for change in changeList:
-            if change.id in self._issueToChangeMap:
-                self._issueToChangeMap[change.id].append(change)
+        for change in changeList.entries:
+            if change.issue in self._issueToChangeMap:
+                self._issueToChangeMap[change.issue].append(change)
             else:
-                self._issueToChangeMap[change.id]=[change]
+                self._issueToChangeMap[change.issue]=[change]
 
     
     def generate(self, leafIssueType):
@@ -72,10 +72,8 @@ class IssuesToCodeRTMGenerator:
         '''
         report = []
         
-        self.generateList(report, self._issueStructure, leafIssueType)
-        
-        for node in self._issueStructure:
-            report.extend(self.generateNode(self, 0, report, node, leafIssueType))
+        for node in self._issueStructure.root.children:
+            report.extend(self.generateNode(0, node, leafIssueType))
             
         return report
         
@@ -115,21 +113,26 @@ class IssuesToCodeRTMGenerator:
             "issue" : {
                 "key" : issue.key,
                 "type" : issue.type,
-                "summary" : issue.summary
+                "summary" : issue.summary,
+                "url" : issue.url 
             }
         }
         
-        if issue.type==leafIssueType:
-            # generate code link section
-            entry["code"] = self.generateCodeSection()
+        # generate code link section
+        # recursive mapping only for leaf nodes
+        #recursiveCodeMapping = issue.type==leafIssueType
+        recursiveCodeMapping =True
+        entry["code"] = self.generateCodeSection(node, recursiveCodeMapping)
         
         return entry
 
 
-    def generateCodeSection(self, node):
-        # set of keys for current node and all descendants
-        issueScope = [node.key] + [ n.key for n in  node.allChildren() ]
-    
+    def generateCodeSection(self, node, recurse=True):
+                
+        # recursive: set of keys for current node and all descendants
+        # non-recursive : only for current node
+        issueScope = [node.key] + [ n.key for n in  node.allChildren() ] if recurse else [node.key] 
+        
         # set of changes that trace to one of the issues in scope
         relatedChanges = set()
         for issueKey in issueScope:
@@ -143,10 +146,7 @@ class IssuesToCodeRTMGenerator:
     
     
 def removePrefix(prefix, s):
-    if s.startswith(prefix):
-        s[len(prefix):]
-    else:
-        s
+    return s[len(prefix):] if s.startswith(prefix) else s
 
         
 

@@ -30,7 +30,7 @@ class StructureBuilder:
         key=csvRecord[0]
         index=csvRecord[1]
 
-        newNode=StructureNode(key, [])
+        newNode=StructureNode(key)
         
         # search for the parent node on the stack
         while self._nodeStack and not index.startswith(self.top()[1] ):
@@ -126,7 +126,7 @@ def addToStructure(structure, parentKey, childKey):
         # check if child already exists
         if(not [ch for ch in parent.children if ch.key==childKey]):
             # add child
-            parent.add(StructureNode(childKey,[]))
+            parent.add(StructureNode(childKey))
             
             
 

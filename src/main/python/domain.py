@@ -18,7 +18,7 @@ class IssuesSet:
         self.issues.update({issue.key:issue})
 
     def get(self, key):
-        self.issues[key]
+        return self.issues.get(key, None)
 
 
 class Issue:
@@ -38,26 +38,26 @@ class Issue:
 class Structure:
 
     def __init__(self):
-        self.root = StructureNode(None,[])
+        self.root = StructureNode(None)
     
     def find(self, key):
-        self.root.find(key)
+        return self.root.find(key)
              
 
 class StructureNode:
 
-    def __init__(self, key, children):
+    def __init__(self, key):
         self.key = key
-        self.children = children
+        self.children = []
 
     def add(self, node):
         self.children.append(node)
 
     def allChildren(self):
-        self.children + [node for child in self.children for node in child.allChildren()]
+        return self.children + [node for child in self.children for node in child.allChildren()]
 
     def find(self, key):
-        next((n for n in [self] + self.allChildren() if n.key == key), None)
+        return next((n for n in [self] + self.allChildren() if n.key == key), None)
 
 
 class ChangeList:
@@ -75,9 +75,9 @@ class ChangeList:
 
 class Change:
 
-    def __init__(self, id, comment, paths, jiraId):
+    def __init__(self, id, comment, paths, issue):
         self.id = id
         self.comment = comment
         self.paths = paths
-        self.jiraId = jiraId
+        self.issue = issue
 

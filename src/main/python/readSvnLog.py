@@ -12,9 +12,10 @@ def readSvnLogXml(xmlfile):
 
 
 def mockLog():
-    chList=ChangeList("/")
+    chList=ChangeList("")
     
-    chList.add(Change(1, "PRJ-2 comm", ["/a.txt"], "PRJ-2" ))
-    chList.add(Change(2, "PRJ-3 comm", ["/b.txt"], "PRJ-3" ))
+    chList.add(Change(1, "PRJ-1 comm", ["/a.txt"], "PRJ-1" ))
+    chList.add(Change(2, "PRJ-2 comm", ["/x.txt"], "PRJ-2" ))
+    chList.add(Change(3, "PRJ-3 comm", ["/b.txt"], "PRJ-3" ))
             
     return chList

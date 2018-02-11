@@ -104,9 +104,9 @@ USAGE
             svnlog=readSvnLogXml(f)
         
         generator=IssuesToCodeRTMGenerator(structure, issues, svnlog)
-        report = generator.generate("Feature")
+        report = generator.generate("Story")
         
-        json.dumps(report)
+        json.dump(report, sys.stdout, indent=2)
         
 
         return 0
