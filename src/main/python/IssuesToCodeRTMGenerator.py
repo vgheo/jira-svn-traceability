@@ -120,8 +120,7 @@ class IssuesToCodeRTMGenerator:
         
         # generate code link section
         # recursive mapping only for leaf nodes
-        #recursiveCodeMapping = issue.type==leafIssueType
-        recursiveCodeMapping =True
+        recursiveCodeMapping = issue.type==leafIssueType
         entry["code"] = self.generateCodeSection(node, recursiveCodeMapping)
         
         return entry
