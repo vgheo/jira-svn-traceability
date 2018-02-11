@@ -32,7 +32,10 @@
 		<tbody>
 			{{#.}}
 			<tr>
-				<td style="padding-left:{{level}}em">{{issue.key}} ({{issue.type}}) {{issue.summary}}</td>
+				<td style="padding-left:calc({{level}} * 4em)">
+					<a href="{{issue.url}}">{{issue.key}}</a> 
+					({{issue.type}}) {{issue.summary}}
+				</td>
 				<td>
 					{{#code}}
 						{{.}}
