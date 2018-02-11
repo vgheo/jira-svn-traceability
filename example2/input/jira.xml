@@ -1,0 +1,22 @@
+
+<rss>
+<channel>
+	<item>
+		<link>https://jira.atlassian.com/browse/PRJ-1</link>
+		<key id="931906">PRJ-1</key>
+		<type id="10000">Feature</type>
+		<summary>f1</summary>
+		<subtasks></subtasks>
+	</item>
+	<item>
+		<link>https://jira.atlassian.com/browse/PRJ-1</link>
+		<key>PRJ-2</key>
+		<type id="10001">Story</type>
+		<summary>s2</summary>
+		<subtasks>
+			<subtask>PRJ-3</subtask>
+		</subtasks>
+	</item>
+
+</channel>
+</rss>

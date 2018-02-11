@@ -28,16 +28,25 @@ Next:
 
 
 
-## JIRA pyhton
+## JIRA 
+pyhton
 https://jira.readthedocs.io/en/master/
+
+
+XML sample:
+https://jira.atlassian.com/sr/jira.issueviews:searchrequest-xml/temp/SearchRequest.xml?jqlQuery=project+%3D+JSWCLOUD+AND+resolution+%3D+Unresolved+and+createdDate+%3E%3D+2018-02-01+ORDER+BY+key+DESC&tempMax=1000
 
 ## JIRA Structure
 https://wiki.almworks.com/display/structure/S-JQL+Cookbook
 
-## svn python
+## svn
+
+### python
 https://pypi.python.org/pypi/svn
 
-
+### svn xml log
+sample:
+svn log --xml --verbose https://github.com/vgheo/jira-svn-traceability.git
 
 # design
 

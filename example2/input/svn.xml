@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<log>
+	<logentry revision="3">
+		<author>vlad.gheorghe</author>
+		<date>2018-02-06T05:42:58.000000Z</date>
+		<paths>
+			<path kind="dir" action="A">/trunk/example1</path>
+			<path action="A" kind="file">/trunk/example1/jira.json</path>
+			<path action="A" kind="file">/trunk/example1/report-alt2.html</path>
+		</paths>
+		<msg>PRJ-3 some work </msg>
+		
+	</logentry>
+
+	<logentry revision="2">
+		<author>vgheo</author>
+		<date>2018-02-06T05:37:26.000000Z</date>
+		<paths>
+			<path action="A" kind="file">/trunk/.gitignore</path>
+			<path kind="dir" action="D">/trunk/example1</path>
+			<path kind="file" action="D">/trunk/example1/jira.json</path>
+		</paths>
+		<msg>PRJ-2 Initial commit</msg>
+	</logentry>
+</log>
