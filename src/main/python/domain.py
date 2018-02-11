@@ -15,7 +15,7 @@ class IssuesSet:
         self.issues = {}
 
     def add(self, issue):
-        self.issues.update(issue.key, issue)
+        self.issues.update({issue.key:issue})
 
     def get(self, key):
         self.issues[key]
@@ -38,7 +38,7 @@ class Issue:
 class Structure:
 
     def __init__(self):
-        self.root = StructureNode(None)
+        self.root = StructureNode(None,[])
     
     def find(self, key):
         self.root.find(key)

@@ -33,12 +33,12 @@ class StructureBuilder:
         newNode=StructureNode(key, [])
         
         # search for the parent node on the stack
-        while self._nodeStack and not index.startsWith(self.top()[1] ):
+        while self._nodeStack and not index.startswith(self.top()[1] ):
             self._nodeStack.pop()
             
         if not self._nodeStack:
             #new node is top-level
-            self._structure.root.append(newNode)
+            self._structure.root.add(newNode)
         else:
             # new node is child of top of the stack
             self.top()[0].add(newNode)                
@@ -67,31 +67,39 @@ def readJiraXml(xmlfile):
         key=_getElementText(item, "key")
         issType=_getElementText(item, "type")
         summary=_getElementText(item, "summary")
-        link=_getElementText(item, " link")
+        link=_getElementText(item, "link")
 
         issue=Issue(key, link, issType, summary)
         
-        subtasks=item.getElementsByTagName("subtasks")[0]
-        for st in subtasks.getElementsByTagName("subtask"):
-            stKey=_getText(st)
-            issue.subtasks.append(stKey)
+        subtasks=_getFirstElement(item, "subtasks")
+        if subtasks<>None:
+            for st in subtasks.getElementsByTagName("subtask"):
+                stKey=_getText(st)
+                issue.subtasks.append(stKey)
         
         issuesSet.add(issue)
     
     return issuesSet
     
+def _getFirstElement(root, tag):
+    '''
+    First child element with given tag, or None
+    '''
+    elems=root.getElementsByTagName(tag)
+    return elems[0] if elems.length>0 else None
+    
+    
+    
 def _getElementText(root, tag):
-    _getText(root.getElementsByTagName(tag)[0])
+    elem=_getFirstElement(root, tag)
+    return _getText(elem) if elem<>None else None
 
 def _getText(elem):
     '''
     Returns the first text child node of elem
     '''
-    txt=next( (n for n in elem.childNodes if n.type==Node.TEXT_NODE), None)
-    if txt<>None:
-        txt.text
-    else:
-        None
+    txt=next( (n for n in elem.childNodes if n.nodeType==Node.TEXT_NODE), None)
+    return txt.data if txt<>None else None
     
     
 
@@ -105,13 +113,20 @@ def extendStructureWithSubtasks(structure, issueSet):
         
 
 def addToStructure(structure, parentKey, childKey):
+    '''
+    No change occurs if
+    - parent not found in structure 
+    - child with the same childKey already exists
+    '''
     parent=structure.find(parentKey)
     if parent==None:
-        #cannot find parent - fail
-        return False
+        #cannot find parent - skip
+        pass
     else:
         # check if child already exists
         if(not [ch for ch in parent.children if ch.key==childKey]):
             # add child
             parent.add(StructureNode(childKey,[]))
+            
+            
 

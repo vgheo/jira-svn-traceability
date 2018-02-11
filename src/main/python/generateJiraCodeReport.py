@@ -1,4 +1,4 @@
-#!/usr/local/bin/python2.7
+#!/usr/bin/python2.7
 # encoding: utf-8
 '''
 generateJiraCodeReport -- generate JIRA-code traceability report
@@ -32,7 +32,7 @@ __version__ = 0.1
 __date__ = '2018-02-10'
 __updated__ = '2018-02-10'
 
-DEBUG = 1
+DEBUG = 0
 TESTRUN = 0
 PROFILE = 0
 
@@ -74,11 +74,11 @@ USAGE
 ''' % (program_shortdesc, str(__date__))
 
     try:
-        # Setup argument parser
+        # Setup argument parser     
         parser = ArgumentParser(description=program_license, formatter_class=RawDescriptionHelpFormatter)
         parser.add_argument("-j", "--jira", dest="jiraxml", help="jira issues xml file")
         parser.add_argument("-s", "--structure", dest="strcsv", help="jira structure CSV file")
-        parser.add_argument("-l", "--svnlog", dest="svnxml", help="svn xml log file")
+        parser.add_argument("-l", "--svnlog", dest="svnlogxml", help="svn xml log file")
         parser.add_argument('-V', '--version', action='version', version=program_version_message)
 
         # Process arguments
@@ -86,16 +86,22 @@ USAGE
 
         jiraxml = args.jiraxml
         strcsv = args.strcsv
-        svnlogxml = args.svnlog
+        svnlogxml = args.svnlogxml
         
         # load jira xml
-        issues=readJiraXml(jiraxml)
+        with open(jiraxml) as f:
+            issues=readJiraXml(f)
+    
         # load structure
-        structure=readStructureCSV(strcsv)
+        with open(strcsv) as f:
+            structure=readStructureCSV(f)
+            
         # add subtasks to structure
         extendStructureWithSubtasks(structure, issues)
+        
         # load svn log
-        svnlog=readSvnLogXml(svnlogxml)
+        with open(svnlogxml) as f:
+            svnlog=readSvnLogXml(f)
         
         generator=IssuesToCodeRTMGenerator(structure, issues, svnlog)
         report = generator.generate("Feature")
@@ -107,19 +113,18 @@ USAGE
     except KeyboardInterrupt:
         ### handle keyboard interrupt ###
         return 0
-    except Exception, e:
-        if DEBUG or TESTRUN:
-            raise(e)
-        indent = len(program_name) * " "
-        sys.stderr.write(program_name + ": " + repr(e) + "\n")
-        sys.stderr.write(indent + "  for help use --help")
-        return 2
+#     except Exception, e:
+#         if DEBUG or TESTRUN:
+#             raise(e)
+#         indent = len(program_name) * " "
+#         sys.stderr.write(program_name + ": " + repr(e) + "\n")
+#         sys.stderr.write(indent + "  for help use --help")
+#         return 2
 
 if __name__ == "__main__":
     if DEBUG:
-        sys.argv.append("-h")
-        sys.argv.append("-v")
-        sys.argv.append("-r")
+        # debug settings
+        pass
     if TESTRUN:
         import doctest
         doctest.testmod()
