@@ -23,7 +23,7 @@ import os
 from argparse import ArgumentParser
 from argparse import RawDescriptionHelpFormatter
 from readJira import readJiraXml, readStructureCSV, extendStructureWithSubtasks
-from readSvnLog import readSvnLogXml
+from SvnLogParser import SvnLogParser
 from IssuesToCodeRTMGenerator import IssuesToCodeRTMGenerator
 import json
 
@@ -101,7 +101,7 @@ USAGE
         
         # load svn log
         with open(svnlogxml) as f:
-            svnlog=readSvnLogXml(f)
+            svnlog=SvnLogParser().parse(f)
         
         generator=IssuesToCodeRTMGenerator(structure, issues, svnlog)
         report = generator.generate("Story")

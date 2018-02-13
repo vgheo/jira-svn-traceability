@@ -18,16 +18,12 @@
 import xml.sax
 import sys
 
-# TODO - replace w/domain
+from domain import ChangeList, Change
 
-class Change:
-	def __init__(self):
-		self.paths=[]
-		pass
 
 def extractIssueId(message):
 	#TODO
-	return "ID-1"
+	return "PRJ-1"
 
 class SvnLogParser(xml.sax.ContentHandler):
 	def __init__(self):
@@ -37,8 +33,8 @@ class SvnLogParser(xml.sax.ContentHandler):
 	def getModel(self):
 		return self._model
 
-	def gefCurrentEntry(self):
-		return self._model[-1] if self._model else None
+	def getCurrentEntry(self):
+		return self._model.entries[-1] if self._model.entries else None
 
 	def getCurrentTag(self):
 		if self._tagStack: 
@@ -58,6 +54,8 @@ class SvnLogParser(xml.sax.ContentHandler):
 		"""
 		self.__init__()
 		xml.sax.parse(logfile, self)
+		
+		return self.getModel()
 
 	def startElement(self, name, attrs):
 	
@@ -81,29 +79,28 @@ class SvnLogParser(xml.sax.ContentHandler):
 		if self.getCurrentTag()=="msg":
 			self.processMsg(content)
 		elif self.getCurrentTag()=="author":
-			self.processAuthorContent(self,content)
+			self.processAuthorContent(content)
 		elif self.getCurrentTag()=="date":
-			self.processDateContent(self,content)
+			self.processDateContent(content)
 		elif self.getCurrentTag()=="path":
-			self.processPathContent(self,content)
+			self.processPathContent(content)
 
 	def startLog(self):
-		self._model=[]
+		self._model=ChangeList()
 
 	def endLog(self):
 		pass
 
 	def startLogEntry(self, attrs):
-		entry = Change()
-		entry.id=attrs["revision"]
-		self._model.append(entry)
+		entry = Change(int(attrs["revision"]))
+		self.getModel().entries.append(entry)
 
 	def endLogEntry(self):
 		pass
 
 	def processMsg(self, content):
 		self.getCurrentEntry().issue=extractIssueId(content)
-		self.getCurrentEntry().comment=content`
+		self.getCurrentEntry().comment=content
 	
 	def processAuthorContent(self, content):
 		self.getCurrentEntry().author=content

@@ -142,7 +142,6 @@ class IssuesToCodeRTMGenerator:
         # all paths, trim base directory, sort
         fullPaths=set( [ p for c in relatedChanges for p in c.paths ])
         code["paths"]=[removePrefix(self._changeList.basePath, p) for p in sorted(fullPaths) ]
-        
         code["revisions"]=sorted(set([c.id for c in relatedChanges ]))
     
         return code

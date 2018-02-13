@@ -9,7 +9,6 @@ import xml.dom.minidom
 
 
 from domain import Structure, StructureNode, IssuesSet, Issue
-from boto.manage.propget import get
 from xml.dom.minidom import Node
 
 class StructureBuilder:

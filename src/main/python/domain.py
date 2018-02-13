@@ -62,7 +62,7 @@ class StructureNode:
 
 class ChangeList:
 
-    def __init__(self, basePath):
+    def __init__(self, basePath=""):
         '''
         @param basePath base path of the project. all paths in the set sre under this path
         '''
@@ -75,8 +75,8 @@ class ChangeList:
 
 class Change:
 
-    def __init__(self, id, comment, paths, issue):
-        self.id = id
+    def __init__(self, changeId, comment=None, paths=[], issue=None):
+        self.id = changeId
         self.comment = comment
         self.paths = paths
         self.issue = issue

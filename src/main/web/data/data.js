@@ -1,8 +1,17 @@
 var data = [
   {
-    "code": [
-      "/a.txt"
-    ], 
+    "code": {
+      "paths": [
+        "/trunk/.gitignore", 
+        "/trunk/example1", 
+        "/trunk/example1/jira.json", 
+        "/trunk/example1/report-alt2.html"
+      ], 
+      "revisions": [
+        2, 
+        3
+      ]
+    }, 
     "issue": {
       "url": "https://jira.atlassian.com/browse/PRJ-1", 
       "type": "Feature", 
@@ -12,10 +21,10 @@ var data = [
     "level": 0
   }, 
   {
-    "code": [
-      "/b.txt", 
-      "/x.txt"
-    ], 
+    "code": {
+      "paths": [], 
+      "revisions": []
+    }, 
     "issue": {
       "url": "https://jira.atlassian.com/browse/PRJ-2", 
       "type": "Story", 
