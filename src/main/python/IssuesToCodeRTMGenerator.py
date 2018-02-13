@@ -137,12 +137,15 @@ class IssuesToCodeRTMGenerator:
         for issueKey in issueScope:
             relatedChanges.update( self._issueToChangeMap.get(issueKey, []) )
     
+        code={}
+
         # all paths, trim base directory, sort
-        
         fullPaths=set( [ p for c in relatedChanges for p in c.paths ])
+        code["paths"]=[removePrefix(self._changeList.basePath, p) for p in sorted(fullPaths) ]
+        
+        code["revisions"]=sorted(set([c.id for c in relatedChanges ]))
     
-        return [removePrefix(self._changeList.basePath, p) for p in sorted(fullPaths) ]
-    
+        return code
     
 def removePrefix(prefix, s):
     return s[len(prefix):] if s.startswith(prefix) else s
