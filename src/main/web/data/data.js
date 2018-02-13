@@ -2,10 +2,7 @@ var data = [
   {
     "code": {
       "paths": [
-        "/trunk/.gitignore", 
-        "/trunk/example1", 
-        "/trunk/example1/jira.json", 
-        "/trunk/example1/report-alt2.html"
+        "/trunk/example1/jira.json"
       ], 
       "revisions": [
         1

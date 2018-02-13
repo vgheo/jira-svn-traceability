@@ -74,10 +74,9 @@ class ChangeList:
 
 
 class Change:
-
-    def __init__(self, changeId, comment=None, paths=[], issue=None):
+    def __init__(self, changeId):
         self.id = changeId
-        self.comment = comment
-        self.paths = paths
-        self.issue = issue
+        self.comment = None
+        self.paths = []
+        self.issue = None
 

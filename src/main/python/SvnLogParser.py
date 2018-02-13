@@ -8,6 +8,7 @@
 # 	svn log -v --xml https://github.com/concordion/idea-concordion-support > log1.xml
 #	dee ${project_dir)/test/log1.xml
 #
+#	NOTE Python default attribute value - if object - it is THE SAME instance for all calls !!
 #
 #	REFERENCE
 #	https://docs.python.org/2/library/subprocess.html
@@ -31,6 +32,15 @@ class SvnLogParser(xml.sax.ContentHandler):
 	def __init__(self):
 		self._model=[]
 		self._tagStack=[]
+
+	def parse(self, logfile):
+		"""
+		transform xml svn log to python object structure
+		"""
+		self.__init__()
+		xml.sax.parse(logfile, self)
+		
+		return self.getModel()
 	
 	def getModel(self):
 		return self._model
@@ -49,15 +59,7 @@ class SvnLogParser(xml.sax.ContentHandler):
 	
 	def popTag(self):
 		return self._tagStack.pop()
-		
-	def parse(self, logfile):
-		"""
-		transform xml svn log to python object structure
-		"""
-		self.__init__()
-		xml.sax.parse(logfile, self)
-		
-		return self.getModel()
+	
 
 	def startElement(self, name, attrs):
 	
