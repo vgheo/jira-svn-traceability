@@ -8,8 +8,7 @@ var data = [
         "/trunk/example1/report-alt2.html"
       ], 
       "revisions": [
-        2, 
-        3
+        1
       ]
     }, 
     "issue": {
@@ -22,8 +21,16 @@ var data = [
   }, 
   {
     "code": {
-      "paths": [], 
-      "revisions": []
+      "paths": [
+        "/trunk/.gitignore", 
+        "/trunk/example1", 
+        "/trunk/example1/jira.json", 
+        "/trunk/example1/report-alt2.html"
+      ], 
+      "revisions": [
+        2, 
+        3
+      ]
     }, 
     "issue": {
       "url": "https://jira.atlassian.com/browse/PRJ-2", 

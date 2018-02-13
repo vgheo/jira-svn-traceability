@@ -14,16 +14,18 @@
 #	http://svnbook.red-bean.com/en/1.7/svn.ref.svn.c.log.html
 #	https://wiki.python.org/moin/Sax
 #	https://docs.python.org/2/library/json.html
+#	https://docs.python.org/2/howto/regex.html
 #
 import xml.sax
+import re
 import sys
 
 from domain import ChangeList, Change
 
+issuePattern=re.compile(r"^[\s\[]*([A-Z]+-[0-9]+)[\s\]]*")
 
 def extractIssueId(message):
-	#TODO
-	return "PRJ-1"
+	return issuePattern.match(message).group(1)
 
 class SvnLogParser(xml.sax.ContentHandler):
 	def __init__(self):

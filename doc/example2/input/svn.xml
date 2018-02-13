@@ -20,6 +20,15 @@
 			<path kind="dir" action="D">/trunk/example1</path>
 			<path kind="file" action="D">/trunk/example1/jira.json</path>
 		</paths>
-		<msg>PRJ-2 Initial commit</msg>
+		<msg>PRJ-2 commit</msg>
+	</logentry>
+
+	<logentry revision="1">
+		<author>vgheo</author>
+		<date>2018-02-06T05:37:26.000000Z</date>
+		<paths>
+			<path kind="file" action="D">/trunk/example1/jira.json</path>
+		</paths>
+		<msg>PRJ-1 commit 1</msg>
 	</logentry>
 </log>
