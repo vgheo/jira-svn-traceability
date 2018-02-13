@@ -8,7 +8,7 @@ roots = issue in structure(${structureName}, 'root' )
 children = issue in structure(${structureName}, 'parent in ${ISS}'  )
 
 
-### ALT1. export form JIRA
+### ALT1. export form JIRA - SELECTED
 https://confluence.atlassian.com/jiracoreserver073/working-with-search-results-861257284.html
 - csv
 - xml
