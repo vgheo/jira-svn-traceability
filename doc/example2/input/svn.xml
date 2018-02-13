@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <log>
+	<logentry revision="4">
+		<author>vlad.gheorghe</author>
+		<date>2018-02-06T05:42:58.000000Z</date>
+		<paths>
+			<path kind="dir" action="A">/trunk/example1</path>
+		</paths>
+		<msg>PRJ-999 unmapped</msg>
+	</logentry>
+	
 	<logentry revision="3">
 		<author>vlad.gheorghe</author>
 		<date>2018-02-06T05:42:58.000000Z</date>

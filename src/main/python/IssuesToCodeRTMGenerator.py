@@ -70,12 +70,14 @@ class IssuesToCodeRTMGenerator:
         @param outStream output stream
         @return report model
         '''
-        report = []
-        
+        issueToCode = []
         for node in self._issueStructure.root.children:
-            report.extend(self.generateNode(0, node, leafIssueType))
+            issueToCode.extend(self.generateNode(0, node, leafIssueType))
+
+        unmappedCode = self.generateUnmappedCode()
             
-        return report
+        return { "issueToCode" : issueToCode, "unmappedCode" : unmappedCode }
+    
         
     def generateNode(self, level, node, leafIssueType):
         ''' 
@@ -130,7 +132,7 @@ class IssuesToCodeRTMGenerator:
                 
         # recursive: set of keys for current node and all descendants
         # non-recursive : only for current node
-        issueScope = [node.key] + [ n.key for n in  node.allChildren() ] if recurse else [node.key] 
+        issueScope = [ n.key for n in  [node] + node.allChildren() ] if recurse else [node.key] 
         
         # set of changes that trace to one of the issues in scope
         relatedChanges = set()
@@ -145,6 +147,27 @@ class IssuesToCodeRTMGenerator:
         code["revisions"]=sorted(set([c.id for c in relatedChanges ]))
     
         return code
+    
+    def generateUnmappedCode(self):
+        '''
+        List of changes that have no issue in the defiend scope 
+        '''
+        
+        issueScopeKeys= set( (n.key for n in self._issueStructure.root.allChildren()) )
+
+        unmappedCode=[ change for change in self._changeList.entries if not change.issue in issueScopeKeys ]
+        
+        def toJson(change):
+            return {"id" : change.id, 
+                    "comment" : change.comment,
+                    "paths" : change.paths,
+                    "issue" : change.issue 
+                    }
+        
+        return [ toJson(change) for change in unmappedCode ]
+       
+
+        
     
 def removePrefix(prefix, s):
     return s[len(prefix):] if s.startswith(prefix) else s
