@@ -76,35 +76,33 @@ USAGE
     try:
         # Setup argument parser     
         parser = ArgumentParser(description=program_license, formatter_class=RawDescriptionHelpFormatter)
-        parser.add_argument("-j", "--jira", dest="jiraxml", help="jira issues xml file")
-        parser.add_argument("-s", "--structure", dest="strcsv", help="jira structure CSV file")
-        parser.add_argument("-l", "--svnlog", dest="svnlogxml", help="svn xml log file")
+        parser.add_argument("--jira", dest="jiraxml", help="jira issues xml file")
+        parser.add_argument("--structure", dest="strcsv", help="jira structure CSV file")
+        parser.add_argument("--svnlog", dest="svnlogxml", help="svn xml log file")
+        parser.add_argument("--leaftype", dest='leafType', help="deepest JIRA issue type of the report")
         parser.add_argument('-V', '--version', action='version', version=program_version_message)
 
         # Process arguments
         args = parser.parse_args()
 
-        jiraxml = args.jiraxml
-        strcsv = args.strcsv
-        svnlogxml = args.svnlogxml
         
         # load jira xml
-        with open(jiraxml) as f:
+        with open(args.jiraxml) as f:
             issues=readJiraXml(f)
     
         # load structure
-        with open(strcsv) as f:
+        with open(args.strcsv) as f:
             structure=readStructureCSV(f)
             
         # add subtasks to structure
         extendStructureWithSubtasks(structure, issues)
         
         # load svn log
-        with open(svnlogxml) as f:
+        with open(args.svnlogxml) as f:
             svnlog=SvnLogParser().parse(f)
         
         generator=IssuesToCodeRTMGenerator(structure, issues, svnlog)
-        report = generator.generate("Story")
+        report = generator.generate(args.leafType)
         
         sys.stdout.write("var data = ")
         json.dump(report, sys.stdout, indent=2)
