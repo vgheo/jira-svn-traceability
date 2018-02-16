@@ -26,7 +26,8 @@ from domain import ChangeList, Change
 issuePattern=re.compile(r"^[\s\[]*([A-Z]+-[0-9]+)[\s\]]*")
 
 def extractIssueId(message):
-	return issuePattern.match(message).group(1)
+	m = issuePattern.match(message)
+	return m.group(1) if m else None
 
 class SvnLogParser(xml.sax.ContentHandler):
 	def __init__(self):
