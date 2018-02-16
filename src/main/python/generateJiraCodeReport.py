@@ -15,6 +15,10 @@ It defines classes_and_methods
 
 @contact:    user_email
 @deffield    updated: Updated
+
+refs
+- https://stackoverflow.com/questions/34931386/how-do-i-keep-the-json-key-order-fixed-with-python-3-json-dumps
+
 '''
 
 import sys
@@ -107,7 +111,7 @@ USAGE
         report = generator.generate(args.leafType)
         
         sys.stdout.write("var data = ")
-        json.dump(report, sys.stdout, indent=2)
+        json.dump(report, sys.stdout, indent=2, sort_keys=True)
 
         return 0
     except KeyboardInterrupt:

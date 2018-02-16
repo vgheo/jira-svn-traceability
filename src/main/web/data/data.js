@@ -1,12 +1,6 @@
 var data = {
   "issueToCode": [
     {
-      "issue": {
-        "summary": "f1",
-        "key": "PRJ-1",
-        "type": "Feature",
-        "url": "https://jira.atlassian.com/browse/PRJ-1"
-      },
       "code": {
         "paths": [
           "/trunk/example1/jira.json"
@@ -15,15 +9,15 @@ var data = {
           1
         ]
       },
+      "issue": {
+        "key": "PRJ-1",
+        "summary": "f1",
+        "type": "Feature",
+        "url": "https://jira.atlassian.com/browse/PRJ-1"
+      },
       "level": 0
     },
     {
-      "issue": {
-        "summary": "s2",
-        "key": "PRJ-2",
-        "type": "Story",
-        "url": "https://jira.atlassian.com/browse/PRJ-2"
-      },
       "code": {
         "paths": [
           "/trunk/.gitignore",
@@ -36,13 +30,19 @@ var data = {
           3
         ]
       },
+      "issue": {
+        "key": "PRJ-2",
+        "summary": "s2",
+        "type": "Story",
+        "url": "https://jira.atlassian.com/browse/PRJ-2"
+      },
       "level": 1
     }
   ],
   "unmappedCode": [
     {
-      "id": 4,
       "comment": "PRJ-999 unmapped",
+      "id": 4,
       "issue": "PRJ-999",
       "paths": [
         "/trunk/example1"
