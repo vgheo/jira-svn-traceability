@@ -42,7 +42,24 @@ class Structure:
     
     def find(self, key):
         return self.root.find(key)
-             
+    
+    def add(self, parentKey, childKey):
+        '''
+        No change occurs if
+        - parent not found in structure 
+        - child with the same childKey already exists
+        '''
+        parent=self.find(parentKey)
+        if parent==None:
+            #cannot find parent - skip
+            pass
+        else:
+            # check if child already exists
+            if(not [ch for ch in parent.children if ch.key==childKey]):
+                # add child
+                parent.add(StructureNode(childKey))
+            
+            
 
 class StructureNode:
 
