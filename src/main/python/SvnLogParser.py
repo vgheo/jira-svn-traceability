@@ -117,9 +117,8 @@ class SvnLogParser(xml.sax.ContentHandler):
 		self.getCurrentEntry().paths.append(content)
 	
 
-
 if __name__ == "__main__":
-	f = file.open(sys.argv[1])
+	f = open(sys.argv[1])
 	log = SvnLogParser().parse(f)
 	sys.stdout.write(log)
 	
