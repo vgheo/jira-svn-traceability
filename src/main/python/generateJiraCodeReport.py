@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/usr/bin/python3
 # encoding: utf-8
 '''
 generateJiraCodeReport -- generate JIRA-code traceability report
