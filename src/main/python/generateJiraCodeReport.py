@@ -19,13 +19,15 @@ It defines classes_and_methods
 
 import sys
 import os
+import json
 
 from argparse import ArgumentParser
 from argparse import RawDescriptionHelpFormatter
-from readJira import readJiraXml, readStructureCSV, extendStructureWithSubtasks
+
+import readJira
+import readStructure
 from SvnLogParser import SvnLogParser
 from IssuesToCodeRTMGenerator import IssuesToCodeRTMGenerator
-import json
 
 __all__ = []
 __version__ = 0.1
@@ -88,14 +90,14 @@ USAGE
         
         # load jira xml
         with open(args.jiraxml) as f:
-            issues=readJiraXml(f)
+            issues=readJira.readJiraXml(f)
     
         # load structure
         with open(args.strcsv) as f:
-            structure=readStructureCSV(f)
-            
+            structure=readStructure.readStructureCSV(f)
+
         # add subtasks to structure
-        extendStructureWithSubtasks(structure, issues)
+        readJira.extendStructureWithSubtasks(structure, issues)
         
         # load svn log
         with open(args.svnlogxml) as f:
