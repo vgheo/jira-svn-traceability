@@ -71,7 +71,7 @@ def readJiraXml(xmlfile):
         issue=Issue(key, link, issType, summary)
         
         subtasks=_getFirstElement(item, "subtasks")
-        if subtasks<>None:
+        if subtasks:
             for st in subtasks.getElementsByTagName("subtask"):
                 stKey=_getText(st)
                 issue.subtasks.append(stKey)
@@ -91,14 +91,14 @@ def _getFirstElement(root, tag):
     
 def _getElementText(root, tag):
     elem=_getFirstElement(root, tag)
-    return _getText(elem) if elem<>None else None
+    return _getText(elem) if elem else None
 
 def _getText(elem):
     '''
     Returns the first text child node of elem
     '''
     txt=next( (n for n in elem.childNodes if n.nodeType==Node.TEXT_NODE), None)
-    return txt.data if txt<>None else None
+    return txt.data if txt else None
     
     
 

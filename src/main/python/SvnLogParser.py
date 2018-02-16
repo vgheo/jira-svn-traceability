@@ -120,7 +120,7 @@ class SvnLogParser(xml.sax.ContentHandler):
 if __name__ == "__main__":
 	f = file.open(sys.argv[1])
 	log = SvnLogParser().parse(f)
-	print log
+	sys.stdout.write(log)
 	
 	
 
