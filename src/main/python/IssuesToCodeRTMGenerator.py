@@ -37,7 +37,7 @@ class IssuesToCodeRTMGenerator:
             "issue" : {
                 "key" : "PRJ-2"
                 "type" : "Feature"
-                "summary" : "feat2" 
+                "summary" : "feat2"
             },
             
             "code" : {
@@ -51,17 +51,18 @@ class IssuesToCodeRTMGenerator:
     
     '''
 
-    def __init__(self, issueStructure, issueSet, changeList):
+    def __init__(self, issueStructure, issueSets, changeLists):
         self._issueStructure = issueStructure
-        self._issueSet = issueSet
-        self._changeList=changeList
+        self._issueSets = issueSets
+        self._changeLists=changeLists
         # issue to change map
         self._issueToChangeMap = {}
-        for change in changeList.entries:
-            if change.issue in self._issueToChangeMap:
-                self._issueToChangeMap[change.issue].append(change)
-            else:
-                self._issueToChangeMap[change.issue]=[change]
+        for changeList in changeLists:
+            for change in changeList.entries:
+                if change.issue in self._issueToChangeMap:
+                    self._issueToChangeMap[change.issue].append(change)
+                else:
+                    self._issueToChangeMap[change.issue]=[change]
 
     
     def generate(self, leafIssueType):
@@ -82,12 +83,12 @@ class IssuesToCodeRTMGenerator:
     def generateNode(self, level, node, leafIssueType):
         ''' 
         Generates a report fragment for a given node.
-        @param level current level of the node in the issue structure
+        @param level cturren level of the node in the issue structure
         @param node
         @return list of report entries
         
         '''
-        issue=self._issueSet.get(node.key);
+        issue=self._getIssue(node.key)
         
         result=[]
         result.append(self.generateNodeEntry(level, node, leafIssueType))
@@ -102,14 +103,18 @@ class IssuesToCodeRTMGenerator:
         
         return result
 
-    
+
+    def _getIssue(self, key):
+        issueList = (issueSet.get(key) for issueSet in self._issueSets)
+        return next((issue for issue in issueList if issue is not None), None)
+
     def generateNodeEntry(self, level, node, leafIssueType):
         '''
         Generates a report entry for the given node
         @return report entry
         '''
-        issue=self._issueSet.get(node.key);
-    
+        issue=self._getIssue(node.key)
+
         entry = { 
             "level": level,
             "issue" : {
@@ -141,9 +146,9 @@ class IssuesToCodeRTMGenerator:
     
         code={}
 
-        # all paths, trim base directory, sort
+        # all paths, sort
         fullPaths=set( [ p for c in relatedChanges for p in c.paths ])
-        code["paths"]=[removePrefix(self._changeList.basePath, p) for p in sorted(fullPaths) ]
+        code["paths"]=sorted(fullPaths)
         code["revisions"]=sorted(set([c.id for c in relatedChanges ]))
     
         return code
@@ -155,7 +160,7 @@ class IssuesToCodeRTMGenerator:
         
         issueScopeKeys= set( (n.key for n in self._issueStructure.root.allChildren()) )
 
-        unmappedCode=[ change for change in self._changeList.entries if not change.issue in issueScopeKeys ]
+        unmappedCode=[change for changeList in self._changeLists for change in changeList.entries if not change.issue in issueScopeKeys]
         
         def toJson(change):
             return {"id" : change.id, 
@@ -171,6 +176,3 @@ class IssuesToCodeRTMGenerator:
     
 def removePrefix(prefix, s):
     return s[len(prefix):] if s.startswith(prefix) else s
-
-        
-

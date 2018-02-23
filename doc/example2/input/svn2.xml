@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<log>
+	<logentry revision="11">
+		<author>alex.merfu</author>
+		<date>2018-02-06T05:42:58.000000Z</date>
+		<paths>
+			<path kind="dir" action="A">/branches/project5</path>
+		</paths>
+		<msg>PRJ-10000 unmapped</msg>
+	</logentry>
+
+	<logentry revision="15">
+		<author>alex.merfu</author>
+		<date>2018-02-06T05:42:58.000000Z</date>
+		<paths>
+			<path kind="dir" action="A">/branches/project5</path>
+			<path action="A" kind="file">/branches/project5/jira.json</path>
+			<path action="A" kind="file">/branches/project5/report-alt2.html</path>
+		</paths>
+		<msg>PRO-O some work </msg>
+
+	</logentry>
+
+	<logentry revision="12">
+		<author>amerfu</author>
+		<date>2018-02-06T05:37:26.000000Z</date>
+		<paths>
+			<path action="A" kind="file">/branches/.gitignore</path>
+			<path kind="dir" action="D">/branches/project5</path>
+			<path kind="file" action="D">/branches/project5/jira.json</path>
+		</paths>
+		<msg>PRO-3 commit</msg>
+	</logentry>
+
+	<logentry revision="9">
+		<author>alex.merfu</author>
+		<date>2018-02-06T05:37:26.000000Z</date>
+		<paths>
+			<path kind="file" action="D">/branches/project5/jira.json</path>
+		</paths>
+		<msg>PRJ-1 commit 1</msg>
+	</logentry>
+</log>
