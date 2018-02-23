@@ -52,13 +52,14 @@ def _getText(elem):
     txt=next( (n for n in elem.childNodes if n.nodeType==Node.TEXT_NODE), None)
     return txt.data if txt else None
 
-def extendStructureWithSubtasks(structure, issueSet):
+def extendStructureWithSubtasks(structure, issueSets):
     '''
     extends a given structure with subtasks defined in issue descriptor 
     '''
-    for iss in issueSet.issues.itervalues():
-        for st in iss.subtasks:
-            structure.add(iss.key, st)
+    for issueSet in issueSets:
+        for iss in issueSet.issues.itervalues():
+            for st in iss.subtasks:
+                structure.add(iss.key, st)
         
 
 

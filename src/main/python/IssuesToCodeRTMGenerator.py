@@ -51,9 +51,9 @@ class IssuesToCodeRTMGenerator:
     
     '''
 
-    def __init__(self, issueStructure, issueSet, changeLists):
+    def __init__(self, issueStructure, issueSets, changeLists):
         self._issueStructure = issueStructure
-        self._issueSet = issueSet
+        self._issueSets = issueSets
         self._changeLists=changeLists
         # issue to change map
         self._issueToChangeMap = {}
@@ -83,12 +83,12 @@ class IssuesToCodeRTMGenerator:
     def generateNode(self, level, node, leafIssueType):
         ''' 
         Generates a report fragment for a given node.
-        @param level current level of the node in the issue structure
+        @param level cturren level of the node in the issue structure
         @param node
         @return list of report entries
         
         '''
-        issue=self._issueSet.get(node.key);
+        issue=self._getIssue(node.key)
         
         result=[]
         result.append(self.generateNodeEntry(level, node, leafIssueType))
@@ -103,14 +103,18 @@ class IssuesToCodeRTMGenerator:
         
         return result
 
-    
+
+    def _getIssue(self, key):
+        issueList = (issueSet.get(key) for issueSet in self._issueSets)
+        return next((issue for issue in issueList if issue is not None), None)
+
     def generateNodeEntry(self, level, node, leafIssueType):
         '''
         Generates a report entry for the given node
         @return report entry
         '''
-        issue=self._issueSet.get(node.key);
-    
+        issue=self._getIssue(node.key)
+
         entry = { 
             "level": level,
             "issue" : {

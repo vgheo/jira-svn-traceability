@@ -82,26 +82,28 @@ USAGE
     try:
         # Setup argument parser     
         parser = ArgumentParser(description=program_license, formatter_class=RawDescriptionHelpFormatter)
-        parser.add_argument("--jira", dest="jiraxml", help="jira issues xml file")
+        parser.add_argument("--jira", action='append', dest="jiraxml", help="jira issues xml file")
         parser.add_argument("--structure", dest="strcsv", help="jira structure CSV file")
-        parser.add_argument("--svnlog", action='append',dest="svnlogxml", help="svn xml log file")
+        parser.add_argument("--svnlog", action='append', dest="svnlogxml", help="svn xml log file")
         parser.add_argument("--leaftype", dest='leafType', help="deepest JIRA issue type of the report")
         parser.add_argument('-V', '--version', action='version', version=program_version_message)
 
         # Process arguments
         args = parser.parse_args()
 
-        
+        jiraXmls=[]
+
         # load jira xml
-        with open(args.jiraxml) as f:
-            issues=readJira.readJiraXml(f)
+        for eachJiraArg in args.jiraxml:
+            with open(eachJiraArg) as f:
+                jiraXmls.append(readJira.readJiraXml(f))
     
         # load structure
         with open(args.strcsv) as f:
             structure=readStructure.readStructureCSV(f)
 
         # add subtasks to structure
-        readJira.extendStructureWithSubtasks(structure, issues)
+        readJira.extendStructureWithSubtasks(structure, jiraXmls)
 
         svnlogs = []
         
@@ -110,7 +112,7 @@ USAGE
             with open(eachArg) as f:
                 svnlogs.append(SvnLogParser().parse(f))
 
-        generator=IssuesToCodeRTMGenerator(structure, issues, svnlogs)
+        generator=IssuesToCodeRTMGenerator(structure, jiraXmls, svnlogs)
         report = generator.generate(args.leafType)
         
         sys.stdout.write("var data = ")
