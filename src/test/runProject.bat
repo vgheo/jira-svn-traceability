@@ -1,0 +1,1 @@
+python ../main/python/generateJiraCodeReport.py --jira resources/example2/input/jira.xml --jira resources/example2/input/jira2.xml --structure resources/example2/input/structure.csv --svnlog resources/example2/input/svn.xml --svnlog resources/example2/input/svn2.xml --leaftype Story
